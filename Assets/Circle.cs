@@ -10,12 +10,17 @@ public class Circle : MonoBehaviour {
     public float pullForce = 50;
     public Vector3 forceDirection;
     public List<GameObject> target;
+
+    Rigidbody2D rb;
+    Vector2 mouse2d;
+    Vector2 mouseTarget;
     //public Collider2D[] colArray;
 
     void Awake() {
         gravityCenter = transform.position;
         target = new List<GameObject>();
         //gravityField = GameObject.Find("GravityField");
+        rb = GetComponentInParent<Rigidbody2D>();
     }
 
     void OnTriggerStay2D(Collider2D other) {//calculate ball direction to mothership
@@ -26,6 +31,12 @@ public class Circle : MonoBehaviour {
     }
 
     void FixedUpdate() {
+
+        //transform.position = Vector3.Lerp(transform.position, Input.mousePosition, .9f);
+        mouse2d = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        mouseTarget = Camera.main.ScreenToWorldPoint(mouse2d);
+        rb.MovePosition(mouseTarget);
+
         if (target.Count > 0) {
             for(int i=0; i<target.Count; i++)
             {
