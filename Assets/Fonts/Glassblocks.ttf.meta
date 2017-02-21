@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 4022d595cb486f0448dfc184de3137ca
+timeCreated: 1487572468
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: GlassBlocks
+  fontNames:
+  - GlassBlocks
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

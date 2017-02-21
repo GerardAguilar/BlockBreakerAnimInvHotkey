@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 70908b2b110b7c24db92941243df0c47
+timeCreated: 1487572299
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Block 1900
+  fontNames:
+  - Block 1900
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
