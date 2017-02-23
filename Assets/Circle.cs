@@ -8,7 +8,7 @@ public class Circle : MonoBehaviour {
     public GameObject gravityField;
     public float pullRadius = 2;
     public float pullForce = 50;
-    public Vector3 forceDirection;
+    //public Vector3 forceDirection;
     public List<GameObject> target;
 
     Rigidbody2D rb;
@@ -25,13 +25,14 @@ public class Circle : MonoBehaviour {
 
     void OnTriggerStay2D(Collider2D other) {//calculate ball direction to mothership
         if (other.gameObject.CompareTag("Projectile")) {
-            forceDirection = transform.position - other.transform.position;
+            //not liking these GetComponents, will have to create an OnTriggerEnter2D and keep track of IDs instead
+            Ball ball = other.gameObject.GetComponent<Ball>();
+            ball.UpdateRelDirection(transform.position - other.transform.position);
             target.Add(other.gameObject);
         }
     }
 
     void FixedUpdate() {
-
         //transform.position = Vector3.Lerp(transform.position, Input.mousePosition, .9f);
         mouse2d = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         mouseTarget = Camera.main.ScreenToWorldPoint(mouse2d);
@@ -40,7 +41,7 @@ public class Circle : MonoBehaviour {
         if (target.Count > 0) {
             for(int i=0; i<target.Count; i++)
             {
-                target[i].GetComponent<Rigidbody2D>().AddForce(forceDirection * pullForce * Time.deltaTime);
+                target[i].GetComponent<Rigidbody2D>().AddForce(target[i].GetComponent<Ball>().relativeDirection * pullForce * Time.deltaTime);
             }
         }
     }

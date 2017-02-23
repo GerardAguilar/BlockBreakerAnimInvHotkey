@@ -18,7 +18,7 @@ public class Box : MonoBehaviour {
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        Debug.Log("Box: Checking for collision");
+        //Debug.Log("Box: Checking for collision");
         if (other.gameObject.CompareTag("Projectile")) {
             boxHealth--;
         }

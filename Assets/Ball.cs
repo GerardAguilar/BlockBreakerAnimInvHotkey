@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    public Vector3 relativeDirection;
     Rigidbody2D rb;
     float maxSpeed;
+   
 
     void Awake() {
         rb = GetComponent<Rigidbody2D>();
@@ -19,5 +21,9 @@ public class Ball : MonoBehaviour
         {
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
         }
+    }
+
+    public void UpdateRelDirection(Vector3 forceDirection) {
+        relativeDirection = forceDirection;
     }
 }
