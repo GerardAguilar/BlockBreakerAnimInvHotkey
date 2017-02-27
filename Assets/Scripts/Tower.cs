@@ -44,8 +44,13 @@ public class Tower : MonoBehaviour {
         if (radarSystem.HowManyTargetted() > 0 && Time.time > nextFire)
         {
             nextFire = Time.time + fireInterval;
-            Debug.Log("PrepareToFire(): Fire");
-            missilePool.FireShot(radarSystem.WheresThePlayer());
-        }        
+            //Debug.Log("PrepareToFire(): Fire");
+            StartCoroutine(missilePool.FireShot());
+            //missilePool.FireShot();
+
+        }
+
+
+
     }
 }

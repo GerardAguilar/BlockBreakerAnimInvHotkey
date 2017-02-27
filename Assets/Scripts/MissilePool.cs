@@ -10,6 +10,8 @@ public class MissilePool : MonoBehaviour {
 
     public GameObject missilePrefab;
 
+    RadarSystem radarSystem;
+
     void Awake() {
         missileArray = new List<GameObject>();
         poolCount = 10;
@@ -23,20 +25,26 @@ public class MissilePool : MonoBehaviour {
             missileArray[i].transform.SetParent(transform);
             missileArray[i].SetActive(false);
         }
+        radarSystem = transform.parent.GetComponentInChildren<RadarSystem>();
         
     }
 
-    public void FireShot(Vector3 target) {
-        Debug.Log("FireShot()");
+    public IEnumerator FireShot()
+    {
+        //Debug.Log("FireShot()");
         while (true) {
             if (!missileArray[index].activeSelf)
             {
+                missileArray[index].GetComponent<Missile>().SetTarget(radarSystem.WheresThePlayer());
                 missileArray[index].SetActive(true);
-                missileArray[index].GetComponent<Missile>().SetTarget(target);
                 break;
             }
-            else if (index == (poolCount-1)) {//if we're at the end, wait;
-                missileArray[index].GetComponent<Missile>().ResetMissile();
+            //else if (index == (poolCount - 1))
+            //{//if we're at the end, wait;
+            //    missileArray[index].GetComponent<Missile>().ResetMissile();
+            //}
+            else {
+                yield return new WaitForSeconds(1f);
             }
             index++;
             index = index % poolCount;
