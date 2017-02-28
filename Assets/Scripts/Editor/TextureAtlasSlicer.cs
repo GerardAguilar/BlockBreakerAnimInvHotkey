@@ -1,8 +1,4 @@
-﻿
-
-
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml;
 using UnityEditor;
@@ -36,7 +32,7 @@ public class TextureAtlasSlicer : EditorWindow
 
     public TextureAtlasSlicer()
     {
-        title = "Texture Atlas Slicer";
+        titleContent.text = "Texture Atlas Slicer";
     }
 
 
