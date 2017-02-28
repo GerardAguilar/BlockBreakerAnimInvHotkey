@@ -14,8 +14,11 @@ public class Box : MonoBehaviour {
 
     GameObject playerProjectiles;
     GameObject gravityField;
+    int hitCount;
 
     public Sprite newSprite;
+
+    public Sprite[] hitSprites;
     
 
     void Awake() {
@@ -25,6 +28,7 @@ public class Box : MonoBehaviour {
         playerProjectiles = GameObject.Find("PlayerProjectiles");
         gravityField = GameObject.Find("GravityField");
         newSprite = Resources.Load<Sprite>("Sprites/BoxBroken");//Here the Load<Sprite> is important
+        hitCount = 0;
     }
 
     void Update() {
@@ -32,7 +36,8 @@ public class Box : MonoBehaviour {
             gameObject.SetActive(false);
             level.DecreaseBoxCount();
         } else if (boxHealth < 2) {
-            GetComponent<SpriteRenderer>().sprite = newSprite;
+            //GetComponent<SpriteRenderer>().sprite = newSprite;
+            LoadSprites();
         }
 
         if (breakCount % 20 == 10) {
@@ -47,9 +52,15 @@ public class Box : MonoBehaviour {
         //Debug.Log("Box: Checking for collision");
         if (other.gameObject.CompareTag("Projectile")) {
             if (!isInvulnerable){
+                hitCount++;
                 boxHealth--;
                 breakCount++;
             }
         }
+    }
+
+    void LoadSprites() {
+        int spriteIndex = hitCount;
+        GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
     }
 }

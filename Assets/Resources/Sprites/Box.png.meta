@@ -1,10 +1,9 @@
 fileFormatVersion: 2
-guid: 493cc42eddeb15749b7f9c190533fd14
-timeCreated: 1487834320
+guid: b92ee867ca7140a409c38f5bcc954e38
+timeCreated: 1485792227
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: Box_0
+  fileIDToRecycleName: {}
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -35,11 +34,11 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 9
-  spritePivot: {x: 0.5, y: 0.55}
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
@@ -77,20 +76,7 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Box_0
-      rect:
-        serializedVersion: 2
-        x: 26
-        y: 31
-        width: 110
-        height: 69
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 
