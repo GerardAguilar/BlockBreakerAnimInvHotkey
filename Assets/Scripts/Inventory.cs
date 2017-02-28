@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
+    
+
     [SerializeField]
     GameObject inventoryPanel;
     [SerializeField]
@@ -21,10 +23,8 @@ public class Inventory : MonoBehaviour {
     public List<Item> items = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
 
-
-
     void Start() {
-        slotAmount = 28;
+        slotAmount = 3;
         inventoryPanel = GameObject.Find("InventoryPanel");
         slotPanel = inventoryPanel.transform.FindChild("SlotPanel").gameObject;
 
@@ -44,6 +44,8 @@ public class Inventory : MonoBehaviour {
         AddItem(2);
         AddItem(2);
     }
+
+
 
     /*
     Add item into items list and slots list.
