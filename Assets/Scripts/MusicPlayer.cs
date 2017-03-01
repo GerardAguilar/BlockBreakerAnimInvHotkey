@@ -7,8 +7,6 @@ public class MusicPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        //if (MusicPlayerManager.musicPlayerCount < 1)
-        //{
 
         if (instance != null)
         {
@@ -20,18 +18,6 @@ public class MusicPlayer : MonoBehaviour {
             GameObject.DontDestroyOnLoad(gameObject);
         }
 
-        //    MusicPlayerManager.musicPlayerCount++;
-        //}
-        //else {
-        //    Destroy(gameObject);
-        //}
-
-        //Debug.Log("Awake() " + GetInstanceID());
-
     }
 
 }
-
-//public static class MusicPlayerManager{
-//    public static int musicPlayerCount = 0;
-//}

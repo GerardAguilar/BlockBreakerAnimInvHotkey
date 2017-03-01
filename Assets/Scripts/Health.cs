@@ -11,17 +11,26 @@ public class Health : MonoBehaviour {
     public float proportion;
     public float lerpSpeed;
     public Image healthUI;
+    public Image healthHUD;
 
     Rigidbody2D rb;
     Circle mothership;
 
-    void Awake() {
-        health = 20f;
+    bool initialized = false;
+
+    void Start() {
+        if (!initialized)
+        {
+            health = 20f;
+            initialized = true;
+        }
         maxHealth = 20f;
+            
         healthUI = GetComponent<Image>();
         lerpSpeed = 10f;
         rb = GetComponentInParent<Rigidbody2D>();
         mothership = GetComponentInParent<Circle>();
+        healthHUD = GameObject.Find("RadialContent").GetComponent<Image>();
     }
 
     void Update() {
@@ -30,6 +39,7 @@ public class Health : MonoBehaviour {
         }
         proportion = health / maxHealth;
         healthUI.fillAmount = Mathf.Lerp(healthUI.fillAmount, proportion, Time.deltaTime * lerpSpeed);
+        healthHUD.fillAmount = Mathf.Lerp(healthUI.fillAmount, proportion, Time.deltaTime * lerpSpeed);
     }
 
     void OnTriggerEnter2D(Collider2D other) {

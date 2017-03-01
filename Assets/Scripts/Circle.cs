@@ -11,9 +11,9 @@ public class Circle : MonoBehaviour {
     List<GameObject> target;
 
     Rigidbody2D rb;
-    Vector2 mouse2d;
+    public Vector2 mouse2d;
     Vector2 target2d;
-    Vector2 mouseTarget;
+    public Vector2 mouseTarget;
     float followSpeed;
 
     Vector2 clampedPosition;
@@ -23,6 +23,8 @@ public class Circle : MonoBehaviour {
     public bool hasStarted;
     public GameObject playerProjectiles;
     public GameObject ballPrefab;
+
+    WorldLimits limits;
 
     void Awake() {
         gravityCenter = transform.position;
@@ -36,6 +38,8 @@ public class Circle : MonoBehaviour {
         hasStarted = false;
         playerProjectiles = GameObject.Find("PlayerProjectiles");
         ballPrefab = Resources.Load("Prefabs/Ball") as GameObject;
+        limits = GameObject.Find("Background").GetComponent<WorldLimits>();
+        clampedPosition = new Vector2();
     }
 
     void OnTriggerStay2D(Collider2D other) {//calculate ball direction to mothership
@@ -79,10 +83,12 @@ public class Circle : MonoBehaviour {
 
     void FixedUpdate() {
         mouse2d = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        clampedPosition.y = Mathf.Clamp(mouse2d.y, 30f, 570);
-        clampedPosition.x = Mathf.Clamp(mouse2d.x, 30f, 770f);
-        mouse2d = clampedPosition;
         mouseTarget = Camera.main.ScreenToWorldPoint(mouse2d);
+
+        clampedPosition.y = Mathf.Clamp(mouseTarget.y, limits.yMin, limits.yMax);
+        clampedPosition.x = Mathf.Clamp(mouseTarget.x, limits.xMin, limits.xMax);
+
+        mouseTarget = clampedPosition;
 
         target2d = new Vector2(
             Mathf.Lerp(rb.position.x, mouseTarget.x, Time.time * followSpeed),

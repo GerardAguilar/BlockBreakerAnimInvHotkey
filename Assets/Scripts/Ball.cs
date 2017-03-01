@@ -7,6 +7,8 @@ public class Ball : MonoBehaviour
     
 
     public Vector3 relativeDirection;
+    WorldLimits limits;
+
     Rigidbody2D rb;
     float maxSpeed;
 
@@ -20,20 +22,23 @@ public class Ball : MonoBehaviour
         level = GetComponent<Level>();
         soundEffectsPlayer = GameObject.Find("SoundEffectsPlayer");
         myAudio = soundEffectsPlayer.GetComponent<AudioSource>();
+        limits = GameObject.Find("Background").GetComponent<WorldLimits>();
     }
 
     void Update()
     {
+        transform.position = new Vector2(
+            Mathf.Clamp(transform.position.x, limits.xMin, limits.xMax),
+            Mathf.Clamp(transform.position.y, limits.yMin, limits.yMax)
+            );
+
         // Trying to Limit Speed
         if (rb.velocity.magnitude > maxSpeed)
         {
             rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
         }
 
-        transform.localPosition = new Vector2(
-            Mathf.Clamp(transform.localPosition.x, -6.5f, 6.5f),
-            Mathf.Clamp(transform.localPosition.y, -4.75f, 4.75f)
-            );
+        
     }
 
     void OnTriggerEnter2D(Collider2D other) {
