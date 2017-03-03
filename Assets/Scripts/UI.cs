@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MusicPlayer : MonoBehaviour {
-    static MusicPlayer instance = null;
+public class UI : MonoBehaviour {
+    static UI instance = null;
 
-	// Use this for initialization
-	void Awake () {
-
+    void Awake()
+    {
         if (instance != null)
         {
             Destroy(gameObject);
@@ -19,5 +18,4 @@ public class MusicPlayer : MonoBehaviour {
         }
 
     }
-
 }
