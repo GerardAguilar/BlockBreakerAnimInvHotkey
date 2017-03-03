@@ -23,6 +23,11 @@ public class Inventory : MonoBehaviour {
     public List<Item> items = new List<Item>();
     public List<GameObject> slots = new List<GameObject>();
 
+    void Awake() {
+        inventorySlot = Resources.Load("Prefabs/Prefab/Slot") as GameObject;
+        inventoryItem = Resources.Load("Prefabs/Prefab/Item") as GameObject;
+    }
+
     void Start() {
         slotAmount = 3;
         inventoryPanel = GameObject.Find("InventoryPanel");
@@ -39,10 +44,7 @@ public class Inventory : MonoBehaviour {
         }
 
         AddItem(0);
-        AddItem(1);
-        AddItem(2);
-        AddItem(2);
-        AddItem(2);
+
     }
 
 

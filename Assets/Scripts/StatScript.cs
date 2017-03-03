@@ -41,7 +41,8 @@ public class StatScript {//no methods, so no need to be a MonoBehaviour. But sin
     /* The initial setting of the MaxVal and CurrentVal allows the StatScript.MaxVal to trigger the BarScript.MaxValue, 
     which sets the BarScript.Value, which updates the fillAmount properly for BarScript.HandleBar. 
     */
-    public void Initialize() {        
+    public void Initialize(BarScript barUI) {
+        bar = barUI;
         this.MaxVal = maxVal;
         this.CurrentVal = currentVal;
     }

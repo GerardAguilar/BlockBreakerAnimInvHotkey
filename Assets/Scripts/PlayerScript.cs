@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerScript : MonoBehaviour {
+    static PlayerScript pInstance = null;
+
 
     [SerializeField]
     private StatScript health;
@@ -15,15 +17,33 @@ public class PlayerScript : MonoBehaviour {
 
     private GameObject inventoryPanel;
 
+    public BarScript healthBar;
+    public BarScript energyBar;
+    public BarScript shieldBar;
+
 	// Use this for initialization
 	void Start () {
         //inventoryPanel = GameObject.Find("InventoryPanel");
 	}
 
     void Awake() {
-        health.Initialize();
-        energy.Initialize();
-        shield.Initialize();
+        if (pInstance != null)
+        {
+            Destroy(gameObject);
+            //print("Duplicate music player is self-destructing");
+        }
+        else {
+            pInstance = this;
+            healthBar = GameObject.Find("RadialBar").GetComponent<BarScript>();
+            energyBar = GameObject.Find("EnergyBar").GetComponent<BarScript>();
+            shieldBar = GameObject.Find("ShieldBar").GetComponent<BarScript>();
+
+            DontDestroyOnLoad(gameObject);
+        }
+
+        health.Initialize(healthBar);
+        energy.Initialize(energyBar);
+        shield.Initialize(shieldBar);
     }
 
     // Update is called once per frame

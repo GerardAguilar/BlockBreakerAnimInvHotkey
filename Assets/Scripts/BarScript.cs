@@ -39,7 +39,10 @@ public class BarScript : MonoBehaviour {
     }
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
+        content = GetComponentInChildren<Transform>().GetComponentInChildren<Image>();
+        valueText = GetComponentInChildren<Transform>().GetComponentInChildren<Text>();
+
         if (lerpColors)
         {
             content.color = fullColor;
