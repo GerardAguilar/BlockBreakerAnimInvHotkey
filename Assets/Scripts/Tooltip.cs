@@ -9,7 +9,7 @@ public class Tooltip : MonoBehaviour {
     private string data;
     private GameObject tooltip;
 
-    void Start() {
+    void Awake() {
         tooltip = GameObject.Find("Tooltip");
         tooltip.SetActive(false);
     }
@@ -20,10 +20,11 @@ public class Tooltip : MonoBehaviour {
         }
     }
 
-    public void Activate(Item item) {
+    public void Initialize(Item item) {
         this.item = item;
         ConstructDataString();
         tooltip.SetActive(true);
+
     }
     public void Deactivate() {
         tooltip.SetActive(false);
@@ -31,7 +32,8 @@ public class Tooltip : MonoBehaviour {
 
     public void ConstructDataString() {
         //data = item.Title;
-        data = "<color=#0473f0><b>" + item.Title + "</b></color>\n"+ item.Description +"\nPower: "+item.Power;
-        tooltip.transform.GetChild(0).GetComponent<Text>().text = data;
+        data = "test";
+        //data = "<color=#0473f0><b>" + item.Title + "</b></color>\n" + item.Description + "\nPower: " + item.Power;
+        tooltip.transform.GetComponentInChildren<Text>().text = data;
     }
 }

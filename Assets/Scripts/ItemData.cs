@@ -16,12 +16,12 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     private Transform originalParent;
     private Inventory inv;
-    private Tooltip tooltip;
+    private Tooltip tooltipScript;
     private Vector2 offset;
 
-    void Start() {
+    void Awake() {
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
-        tooltip = inv.GetComponent<Tooltip>();//Tooltip script has an instance in Inventory
+        tooltipScript = inv.GetComponent<Tooltip>();//Tooltip script has an instance in Inventory
     }
 
     public void OnPointerDown(PointerEventData eventData) {
@@ -56,12 +56,12 @@ public class ItemData : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        tooltip.Activate(item);//pass this item's data into the tooltip data
+        tooltipScript.Initialize(item);//pass this item's data into the tooltip data
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        tooltip.Deactivate();
+        tooltipScript.Deactivate();
     }
 
 
