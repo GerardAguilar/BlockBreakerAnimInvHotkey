@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerScript : MonoBehaviour {
     static PlayerScript pInstance = null;
@@ -75,5 +76,17 @@ public class PlayerScript : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.I)) {
             inventoryPanel.SetActive(!inventoryPanel.activeSelf);
         }
+
+        if (health.CurrentVal <= 0) {
+            SceneManager.LoadScene("You Lose Screen");
+        }
+    }
+
+    public void PlayerTakeDamage() {
+        health.CurrentVal -= 10;
+    }
+
+    public float GetCurrentHealth() {
+        return health.CurrentVal;
     }
 }

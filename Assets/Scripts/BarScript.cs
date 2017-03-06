@@ -40,8 +40,8 @@ public class BarScript : MonoBehaviour {
 
 	// Use this for initialization
 	void Awake () {
-        content = GetComponentInChildren<Transform>().GetComponentInChildren<Image>();
-        valueText = GetComponentInChildren<Transform>().GetComponentInChildren<Text>();
+        content = GetComponentsInChildren<Image>()[2];//0: RadialBar image, 1: Mask image, 2: RadialContent image
+        valueText = GetComponentsInChildren<Text>()[0];//0: Text text
 
         if (lerpColors)
         {
@@ -57,6 +57,7 @@ public class BarScript : MonoBehaviour {
     private void HandleBar() {
         if (fillAmount != content.fillAmount)
         {
+            Debug.Log("HandleBar(): "+ fillAmount +":" +content.fillAmount);
             content.fillAmount = Mathf.Lerp(content.fillAmount, fillAmount, Time.deltaTime * lerpSpeed);
         }
 

@@ -9,12 +9,12 @@ public class Mothership : MonoBehaviour {
     {
         if (mInstance != null)
         {
-            Destroy(gameObject);
+            //Destroy(gameObject);
             //print("Duplicate music player is self-destructing");
         }
         else {
             mInstance = this;
-            GameObject.DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
         }
 
     }

@@ -4,7 +4,24 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour {
 
+    public GameObject ui;
 
+    void Awake() {
+        //Destroy UI when on you win or when you lose
+        if (SceneManager.GetActiveScene().name.Equals("You Win Screen"))
+        {
+            Debug.Log("On You Win Screen");
+            ui = GameObject.Find("UI");
+            Destroy(ui);
+
+        }
+        else if (SceneManager.GetActiveScene().name.Equals("You Lose Screen"))
+        {
+            Debug.Log("On You Lose Screen");
+            ui = GameObject.Find("UI");
+            Destroy(ui);
+        }
+    }
 
 	public void LoadLevel(string name){
 		Debug.Log ("New Level load: " + name);
@@ -13,7 +30,9 @@ public class LevelManager : MonoBehaviour {
 	}
 
     public void NextLevel() {
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+
     }
 
 	public void QuitRequest(){

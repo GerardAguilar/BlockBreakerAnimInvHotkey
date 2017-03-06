@@ -8,7 +8,7 @@ public class Circle : MonoBehaviour {
     GameObject gravityField;
     float pullRadius;
     
-    List<GameObject> target;
+    public List<GameObject> target;
 
     Rigidbody2D rb;
     public Vector2 mouse2d;
@@ -31,7 +31,7 @@ public class Circle : MonoBehaviour {
         target = new List<GameObject>();
         //gravityField = GameObject.Find("GravityField");
         pullRadius = 2;
-        pullForce = .5f;
+        pullForce = 5f;
         rb = GetComponentInParent<Rigidbody2D>();
         followSpeed = .01f;
         beingDamaged = false;
@@ -47,19 +47,23 @@ public class Circle : MonoBehaviour {
             //not liking these GetComponents, will have to create an OnTriggerEnter2D and keep track of IDs instead
             Ball ball = other.gameObject.GetComponent<Ball>();
             ball.UpdateRelDirection(transform.position - other.transform.position);
-            target.Add(other.gameObject);
+            if (!target.Contains(other.gameObject))
+            {
+                target.Add(other.gameObject);
+            }
+
         }
     }
 
     void Update() {
         if (Input.GetMouseButton(0))
         {//left click
-            pullForce = 5f;
+            pullForce = 500f;
             if (!hasStarted) {//triggers our first ball
                 hasStarted = true;
                 MakeBall();
                 for (int i = 0; i < target.Count; i++) {
-                    pullForce = -10f;
+                    pullForce = -1000f;
                 }
             }
             
