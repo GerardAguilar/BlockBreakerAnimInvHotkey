@@ -43,10 +43,7 @@ public class Circle : MonoBehaviour {
     }
 
     void OnTriggerStay2D(Collider2D other) {//calculate ball direction to mothership
-        if (other.gameObject.CompareTag("Projectile")) {
-            //not liking these GetComponents, will have to create an OnTriggerEnter2D and keep track of IDs instead
-            Ball ball = other.gameObject.GetComponent<Ball>();
-            ball.UpdateRelDirection(transform.position - other.transform.position);
+        if (other.gameObject.CompareTag("Projectile")) {            
             if (!target.Contains(other.gameObject))
             {
                 target.Add(other.gameObject);
@@ -76,12 +73,12 @@ public class Circle : MonoBehaviour {
                 MakeBall();
                 for (int i = 0; i < target.Count; i++)
                 {
-                    pullForce = -10f;
+                    pullForce = -1000f;
                 }
             }
         }
         else {
-            pullForce = .5f;
+            pullForce = 500f;
         }
     }
 
@@ -107,9 +104,16 @@ public class Circle : MonoBehaviour {
     void Attract() {
         if (target.Count > 0)
         {
+            Ball ball;
+            Rigidbody2D ballRb;
             for (int i = 0; i < target.Count; i++)
             {
-                target[i].GetComponent<Rigidbody2D>().AddForce(target[i].GetComponent<Ball>().relativeDirection * pullForce * Time.deltaTime);
+                //not liking these GetComponents, will have to create an OnTriggerEnter2D and keep track of IDs instead
+                ball = target[i].gameObject.GetComponent<Ball>();
+                ball.UpdateRelDirection(transform.position - ball.gameObject.transform.position);
+
+                ballRb = target[i].GetComponent<Rigidbody2D>();
+                ballRb.AddForce(ball.relativeDirection * pullForce * Time.deltaTime);
             }
         }
     }
