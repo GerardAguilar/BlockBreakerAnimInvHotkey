@@ -33,9 +33,12 @@ public class Box : MonoBehaviour {
 
     void Update() {
         if (boxHealth <= 0) {
+            
             gameObject.SetActive(false);
+            breakCount++;
             level.DecreaseBoxCount();
-        } else if (boxHealth < 2) {
+            
+        } else if (boxHealth < hitSprites.Length) {
             //GetComponent<SpriteRenderer>().sprite = newSprite;
             LoadSprites();
         }
@@ -50,17 +53,27 @@ public class Box : MonoBehaviour {
 
     void OnCollisionEnter2D(Collision2D other) {
         //Debug.Log("Box: Checking for collision");
-        if (other.gameObject.CompareTag("Projectile")) {
-            if (!isInvulnerable){
-                hitCount++;
-                boxHealth--;
-                breakCount++;
+        bool isBreakable = (this.tag == "Level");
+        if (isBreakable)
+        {
+            if (other.gameObject.CompareTag("Projectile"))
+            {
+                if (!isInvulnerable)
+                {
+                    hitCount++;
+                    boxHealth--;
+
+                }
             }
         }
+        
     }
 
     void LoadSprites() {
         int spriteIndex = hitCount;
-        GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
+        if (hitSprites[spriteIndex])
+        {
+            GetComponent<SpriteRenderer>().sprite = hitSprites[spriteIndex];
+        }
     }
 }
