@@ -57,7 +57,7 @@ public class BarScript : MonoBehaviour {
     private void HandleBar() {
         if (fillAmount != content.fillAmount)
         {
-            Debug.Log("HandleBar(): "+ fillAmount +":" +content.fillAmount);
+            //Debug.Log("HandleBar(): "+ fillAmount +":" +content.fillAmount);
             content.fillAmount = Mathf.Lerp(content.fillAmount, fillAmount, Time.deltaTime * lerpSpeed);
         }
 

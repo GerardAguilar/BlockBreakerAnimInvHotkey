@@ -89,6 +89,13 @@ public class Inventory : MonoBehaviour {
         }
     }
 
+    public void RemoveItem(int slotToRemove) {
+        slotToRemove = 0;//dummy value
+        Debug.Log("Remove Item on: " + slotToRemove);
+        //Destroy(slots[slotToRemove].GetComponentInChildren<ItemData>().gameObject);
+        //Need to reverse AddNewItem without stacking, and AddNewItem with stacking.
+    }
+
     bool CheckIfItemIsInInventory(Item item) {
         for (int i = 0; i < items.Count; i++) {
             //Debug.Log(items[i].ID + " ? " + item.ID);

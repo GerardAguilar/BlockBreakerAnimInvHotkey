@@ -30,8 +30,8 @@ public class WorldLimits : MonoBehaviour {
         yMin = -1 * bgBounds.extents.y;
         yMax = 1 * bgBounds.extents.y;
 
-        Debug.Log(Screen.width+":"+Screen.height);
-        Debug.Log(bgBounds.extents.x * pixelPerUnit);
+        //Debug.Log(Screen.width+":"+Screen.height);
+        //Debug.Log(bgBounds.extents.x * pixelPerUnit);
 
     }
 

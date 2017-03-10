@@ -24,7 +24,9 @@ public class Box : MonoBehaviour {
     void Awake() {
         boxHealth = 2;
         level = GameObject.Find("Level").GetComponent<Level>();
-        level.IncreaseBoxCount();
+        if (this.tag == "Level") {
+            level.IncreaseBoxCount();
+        }
         playerProjectiles = GameObject.Find("PlayerProjectiles");
         gravityField = GameObject.Find("GravityField");
         newSprite = Resources.Load<Sprite>("Sprites/BoxBroken");//Here the Load<Sprite> is important
@@ -35,9 +37,8 @@ public class Box : MonoBehaviour {
         if (boxHealth <= 0) {
             
             gameObject.SetActive(false);
-            breakCount++;
             level.DecreaseBoxCount();
-            
+
         } else if (boxHealth < hitSprites.Length) {
             //GetComponent<SpriteRenderer>().sprite = newSprite;
             LoadSprites();
@@ -62,7 +63,8 @@ public class Box : MonoBehaviour {
                 {
                     hitCount++;
                     boxHealth--;
-
+                    breakCount++;
+                    
                 }
             }
         }

@@ -7,14 +7,11 @@ public class Level : MonoBehaviour {
 
     //public string nextLevel;
 
-    int currentLevelBoxCount = 0;
+    public int currentLevelBoxCount = 0;
     LevelManager levelManager;
-
-    
 
     void Awake() {
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
-
     }
 
     void Update()

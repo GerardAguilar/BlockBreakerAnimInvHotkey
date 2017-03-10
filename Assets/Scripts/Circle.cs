@@ -25,6 +25,7 @@ public class Circle : MonoBehaviour {
     public GameObject ballPrefab;
 
     WorldLimits limits;
+    Inventory inv;
 
     void Awake() {
         gravityCenter = transform.position;
@@ -40,6 +41,7 @@ public class Circle : MonoBehaviour {
         ballPrefab = Resources.Load("Prefabs/Ball") as GameObject;
         limits = GameObject.Find("Background").GetComponent<WorldLimits>();
         clampedPosition = new Vector2();
+        inv = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 
     void OnTriggerStay2D(Collider2D other) {//calculate ball direction to mothership
@@ -56,19 +58,29 @@ public class Circle : MonoBehaviour {
         if (Input.GetMouseButton(0))
         {//left click
             pullForce = 500f;
-            if (!hasStarted) {//triggers our first ball
+
+            if (!hasStarted)
+            {//triggers our first ball
                 hasStarted = true;
                 MakeBall();
-                for (int i = 0; i < target.Count; i++) {
+                for (int i = 0; i < target.Count; i++)
+                {
                     pullForce = -1000f;
                 }
             }
-            
+
+            if (Input.GetMouseButtonDown(1))
+            {//Use picked up powerup
+                inv.RemoveItem(0);
+            }
+
         }
-        else if (Input.GetMouseButton(1)) {
+        else if (Input.GetMouseButton(1))
+        {
             //rightclick
             pullForce = -5f;
-            if (!hasStarted) {//triggers our first ball
+            if (!hasStarted)
+            {//triggers our first ball
                 hasStarted = true;
                 MakeBall();
                 for (int i = 0; i < target.Count; i++)
@@ -77,6 +89,7 @@ public class Circle : MonoBehaviour {
                 }
             }
         }
+        
         else {
             pullForce = 500f;
         }
@@ -127,5 +140,8 @@ public class Circle : MonoBehaviour {
         ball.transform.SetParent(playerProjectiles.transform);
         //breakCount = 0;
     }
+
+    public void UseItem() {
         
+    }
 }
