@@ -48,7 +48,7 @@ public class Ball : MonoBehaviour
         //    rb.AddForce(other.transform.position * -100f, ForceMode2D.Force);
         //}
         //else 
-        if (other.gameObject.CompareTag("Level")) {
+        if (other.gameObject.CompareTag("Breakable")) {
             //Debug.Log("CollidedWithLevel");
             if (myAudio.isPlaying)
             {

@@ -14,13 +14,10 @@ public class Level : MonoBehaviour {
         levelManager = GameObject.Find("LevelManager").GetComponent<LevelManager>();
     }
 
-    void Update()
-    {
-        if (currentLevelBoxCount == 0)
-        {//this shouldn't automatically trigger since Awake functions would increase the box count
-            levelManager.NextLevel();
-        }
-    }
+    //void Update()
+    //{
+
+    //}
 
     public void IncreaseBoxCount()
     {
@@ -30,6 +27,10 @@ public class Level : MonoBehaviour {
     public void DecreaseBoxCount()
     {
         currentLevelBoxCount--;
+        if (currentLevelBoxCount == 0)
+        {//this shouldn't automatically trigger since Awake functions would increase the box count
+            levelManager.NextLevel();
+        }
     }
 
 

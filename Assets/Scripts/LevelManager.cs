@@ -40,6 +40,13 @@ public class LevelManager : MonoBehaviour {
 		Application.Quit ();
 	}
 
+    //Carrying out the bottom in the Level Script
+    //public void BrickDestroyed() {//going to ask the question
+    //    if (Box.breakCount) {//if this is the last brick destroyed
+    //        NextLevel();
+    //    }
+    //}
+
 
 
 }
