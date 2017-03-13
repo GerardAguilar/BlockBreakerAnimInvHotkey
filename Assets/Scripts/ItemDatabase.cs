@@ -48,7 +48,7 @@ public class ItemDatabase : MonoBehaviour {
 
             itemData = JsonMapper.ToObject(www.text);//www is not completing....., or is it JsonMapper that's now finishing?
 
-            yield return itemData;
+            yield return itemData;//this fixed the WWW is still loading error.
 
             //inv.HasDatabaseLoadedCompletely(true);
 
