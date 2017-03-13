@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupScript : MonoBehaviour {
-    public int itemID = 0;
+    public int itemID;
     public Inventory inventory;
 
     void Awake() {
