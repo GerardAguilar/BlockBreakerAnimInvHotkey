@@ -6,40 +6,41 @@ using UnityEngine.UI;
 
 public class Health : MonoBehaviour {
 
-    public float health;
+    //public float health;//handled in the PlayerScript
     public float maxHealth;
     public float proportion;
     public float lerpSpeed;
     public Image healthUI;
     public Image healthHUD;
+    public bool invincible;
+    
 
     Rigidbody2D rb;
     Circle mothership;
+    PlayerScript playerScript;
 
     bool initialized = false;
 
-    void Start() {
+    void Awake() {
+        invincible = false;
         if (!initialized)
         {
-            health = 20f;
+            //health = 20f;
             initialized = true;
         }
-        maxHealth = 20f;
-            
+        maxHealth = 100f;
+
         healthUI = GetComponent<Image>();
         lerpSpeed = 10f;
         rb = GetComponentInParent<Rigidbody2D>();
         mothership = GetComponentInParent<Circle>();
         healthHUD = GameObject.Find("RadialContent").GetComponent<Image>();
+        playerScript = GetComponentInParent<PlayerScript>();
     }
 
-    void Update() {
-        if (health <= 0) {
-            SceneManager.LoadScene("You Lose Screen");
-        }
-        proportion = health / maxHealth;
-        healthUI.fillAmount = Mathf.Lerp(healthUI.fillAmount, proportion, Time.deltaTime * lerpSpeed);
-        healthHUD.fillAmount = Mathf.Lerp(healthUI.fillAmount, proportion, Time.deltaTime * lerpSpeed);
+    void Update() {        
+        //TO-DO: This can probably be moved to the UI BarScript/Health Script
+        healthUI.fillAmount = healthHUD.fillAmount;        
     }
 
     void OnTriggerEnter2D(Collider2D other) {
@@ -54,6 +55,12 @@ public class Health : MonoBehaviour {
     }
 
     public void TakeDamage() {
-        health--;
+        //health--;
+        if (!invincible)
+        {
+            playerScript.PlayerTakeDamage();//need to link this to the healthHUD
+            proportion = playerScript.GetCurrentHealth() / maxHealth;
+            healthHUD.fillAmount = Mathf.Lerp(healthUI.fillAmount, proportion, Time.deltaTime * lerpSpeed);
+        }
     }
 }
