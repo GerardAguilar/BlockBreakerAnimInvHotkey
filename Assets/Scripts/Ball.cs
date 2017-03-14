@@ -48,6 +48,8 @@ public class Ball : MonoBehaviour
         //    rb.AddForce(other.transform.position * -100f, ForceMode2D.Force);
         //}
         //else 
+        Vector2 tweak = new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+        
         if (other.gameObject.CompareTag("Breakable")) {
             //Debug.Log("CollidedWithLevel");
             if (myAudio.isPlaying)
@@ -55,7 +57,11 @@ public class Ball : MonoBehaviour
                 myAudio.Stop();
             }
             myAudio.Play();
+
+            rb.velocity = rb.velocity + tweak;//introduces a little bit of randomness to the ball bounce
         }
+
+
     }
 
     public void UpdateRelDirection(Vector3 forceDirection) {

@@ -12,7 +12,7 @@ public class Health : MonoBehaviour {
     public float lerpSpeed;
     public Image healthUI;
     public Image healthHUD;
-
+    public bool invincible;
     
 
     Rigidbody2D rb;
@@ -22,6 +22,7 @@ public class Health : MonoBehaviour {
     bool initialized = false;
 
     void Awake() {
+        invincible = false;
         if (!initialized)
         {
             //health = 20f;
@@ -55,8 +56,11 @@ public class Health : MonoBehaviour {
 
     public void TakeDamage() {
         //health--;
-        playerScript.PlayerTakeDamage();//need to link this to the healthHUD
-        proportion = playerScript.GetCurrentHealth() / maxHealth;
-        healthHUD.fillAmount = Mathf.Lerp(healthUI.fillAmount, proportion, Time.deltaTime * lerpSpeed);
+        if (!invincible)
+        {
+            playerScript.PlayerTakeDamage();//need to link this to the healthHUD
+            proportion = playerScript.GetCurrentHealth() / maxHealth;
+            healthHUD.fillAmount = Mathf.Lerp(healthUI.fillAmount, proportion, Time.deltaTime * lerpSpeed);
+        }
     }
 }

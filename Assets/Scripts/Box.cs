@@ -19,6 +19,8 @@ public class Box : MonoBehaviour {
     public Sprite newSprite;
 
     public Sprite[] hitSprites;
+
+    public AudioClip crack;
     
 
     void Awake() {
@@ -30,6 +32,7 @@ public class Box : MonoBehaviour {
         playerProjectiles = GameObject.Find("PlayerProjectiles");
         gravityField = GameObject.Find("GravityField");
         newSprite = Resources.Load<Sprite>("Sprites/BoxBroken");//Here the Load<Sprite> is important
+        crack = Resources.Load<AudioClip>("Sounds/crack");
         hitCount = 0;
     }
 
@@ -65,7 +68,7 @@ public class Box : MonoBehaviour {
                 {
                     hitCount++;
                     boxHealth--;
-                    
+                    //AudioSource.PlayClipAtPoint(crack, transform.position);//instantiates the clip, audio can still play when the gameobject is done
                     
                 }
             }

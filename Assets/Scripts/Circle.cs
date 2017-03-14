@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Circle : MonoBehaviour {
 
@@ -24,6 +25,12 @@ public class Circle : MonoBehaviour {
     public GameObject playerProjectiles;
     public GameObject ballPrefab;
 
+    public Toggle toggle;
+    public bool autoPlay;
+
+    public Transform[] targets;
+    public Health health;
+
     WorldLimits limits;
     Inventory inv;
 
@@ -42,6 +49,10 @@ public class Circle : MonoBehaviour {
         limits = GameObject.Find("Background").GetComponent<WorldLimits>();
         clampedPosition = new Vector2();
         inv = GameObject.Find("Inventory").GetComponent<Inventory>();
+        targets = GameObject.Find("Boxes").GetComponentsInChildren<Transform>();
+        health = GameObject.Find("Health").GetComponent<Health>();
+        toggle = GameObject.Find("Autoplay").GetComponent<Toggle>();
+        MakeBall();
     }
 
     void OnTriggerStay2D(Collider2D other) {//calculate ball direction to mothership
@@ -55,6 +66,8 @@ public class Circle : MonoBehaviour {
     }
 
     void Update() {
+        autoPlay = toggle.isOn;
+        health.invincible = autoPlay;
         if (Input.GetMouseButton(0))
         {//left click
             pullForce = 500f;
@@ -96,22 +109,46 @@ public class Circle : MonoBehaviour {
     }
 
     void FixedUpdate() {
+        if (!autoPlay)
+        {
+            MoveWithMouse();
+        }
+        else {
+            AutoPlay();
+        }
+
+
+        if (!beingDamaged) {
+            rb.MovePosition(target2d);
+        }
+        Attract();
+    }
+
+    void MoveWithMouse() {
         mouse2d = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
         mouseTarget = Camera.main.ScreenToWorldPoint(mouse2d);
 
-        clampedPosition.y = Mathf.Clamp(mouseTarget.y, limits.yMin, limits.yMax);
-        clampedPosition.x = Mathf.Clamp(mouseTarget.x, limits.xMin, limits.xMax);
+        clampedPosition.y = Mathf.Clamp(mouseTarget.y, 
+            limits.yMin, limits.yMax);
+        clampedPosition.x = Mathf.Clamp(mouseTarget.x, 
+            limits.xMin, limits.xMax);
 
         mouseTarget = clampedPosition;
 
         target2d = new Vector2(
             Mathf.Lerp(rb.position.x, mouseTarget.x, Time.time * followSpeed),
             Mathf.Lerp(rb.position.y, mouseTarget.y, Time.time * followSpeed));
+    }
 
-        if (!beingDamaged) {
-            rb.MovePosition(target2d);
+    void AutoPlay() {//Get first child of level boxes
+        for (int i = 0; i < targets.Length; i++) {
+            if (targets[i].gameObject.activeSelf) {
+                target2d = new Vector2(
+                                Mathf.Lerp(rb.position.x, targets[i].position.x, Time.time * followSpeed),
+                                Mathf.Lerp(rb.position.y, targets[i].position.y, Time.time * followSpeed));
+            }
         }
-        Attract();
+
     }
 
     void Attract() {
@@ -139,6 +176,11 @@ public class Circle : MonoBehaviour {
         GameObject ball = Instantiate(ballPrefab, transform.position, transform.rotation);
         ball.transform.SetParent(playerProjectiles.transform);
         //breakCount = 0;
+    }
+
+    public void MakeBall(Transform other) {
+        GameObject ball = Instantiate(ballPrefab, other.position, other.rotation);
+        ball.transform.SetParent(playerProjectiles.transform);
     }
 
     public void UseItem() {
